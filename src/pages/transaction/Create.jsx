@@ -25,64 +25,57 @@ export const TransactionForm = ({ initialData, title }) => {
   ];
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
-      <div className="flex items-center gap-4">
-        <Button variant="secondary" outline iconLeft={FiArrowLeft} onClick={() => navigate("/dashboard/transactions")} />
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white">{title}</h2>
+    <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-900 p-6 sm:p-8 rounded-3xl border border-gray-200 dark:border-gray-800 space-y-6 shadow-sm">
+
+      <LabelInput
+        label="Description"
+        placeholder="e.g. AWS Web Services"
+        value={formData.description}
+        onChange={(e) => handleChange("description", e.target.value)}
+        error={errors.description}
+      />
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <LabelInput
+          label="Amount ($)"
+          type="number"
+          placeholder="0.00"
+          value={formData.amount}
+          onChange={(e) => handleChange("amount", e.target.value)}
+          error={errors.amount}
+        />
+        <DatePickerField
+          label="Date"
+          selectedDate={formData.date}
+          onChange={(date) => handleChange("date", date)}
+          error={errors.date}
+        />
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-900 p-6 sm:p-8 rounded-3xl border border-gray-200 dark:border-gray-800 space-y-6 shadow-sm">
-        
-        <LabelInput 
-          label="Description" 
-          placeholder="e.g. AWS Web Services"
-          value={formData.description}
-          onChange={(e) => handleChange("description", e.target.value)}
-          error={errors.description}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <SelectField
+          label="Type"
+          options={typeOptions}
+          value={formData.type}
+          onChange={(val) => handleChange("type", val)}
+          error={errors.type}
         />
+        <SelectField
+          label="Category"
+          options={categoryOptions}
+          value={formData.category}
+          onChange={(val) => handleChange("category", val)}
+          error={errors.category}
+        />
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <LabelInput 
-            label="Amount ($)" 
-            type="number"
-            placeholder="0.00"
-            value={formData.amount}
-            onChange={(e) => handleChange("amount", e.target.value)}
-            error={errors.amount}
-          />
-          <DatePickerField 
-            label="Date"
-            selectedDate={formData.date}
-            onChange={(date) => handleChange("date", date)}
-            error={errors.date}
-          />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <SelectField 
-            label="Type"
-            options={typeOptions}
-            value={formData.type}
-            onChange={(val) => handleChange("type", val)}
-            error={errors.type}
-          />
-          <SelectField 
-            label="Category"
-            options={categoryOptions}
-            value={formData.category}
-            onChange={(val) => handleChange("category", val)}
-            error={errors.category}
-          />
-        </div>
-
-        <div className="pt-4 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-4">
-          <Button variant="secondary" outline onClick={() => navigate("/dashboard/transactions")}>Cancel</Button>
-          <Button variant="primary" type="submit" isLoading={isSubmitting} iconLeft={FiSave}>
-            {initialData ? "Update Transaction" : "Save Transaction"}
-          </Button>
-        </div>
-      </form>
-    </div>
+      <div className="pt-4 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-4">
+        <Button variant="secondary" outline onClick={() => navigate("/dashboard/transactions")}>Cancel</Button>
+        <Button variant="primary" type="submit" isLoading={isSubmitting} iconLeft={FiSave}>
+          {initialData ? "Update Transaction" : "Save Transaction"}
+        </Button>
+      </div>
+    </form>
   );
 };
 

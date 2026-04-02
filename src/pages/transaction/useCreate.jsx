@@ -50,7 +50,7 @@ export const useCreate = (initialData = null) => {
       }
       
       // Navigate back to list on success
-      navigate("/transactions");
+      navigate("/dashboard/transactions");
     } catch (err) {
       if (err instanceof yup.ValidationError) {
         const valErrors = {};

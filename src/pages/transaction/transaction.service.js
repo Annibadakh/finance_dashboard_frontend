@@ -1,3 +1,5 @@
+import { apiHandler } from "../../api/apiHandler";
+
 // In-memory mock data
 let transactions = [
   { id: "1", description: "TechCorp Salary", amount: 5200, category: "Salary", type: "income", date: new Date(2023, 9, 25) },
@@ -10,36 +12,109 @@ let transactions = [
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export const transactionService = {
-  getAll: async () => {
-    await delay(600); // Simulate network
-    return [...transactions].sort((a, b) => b.date - a.date);
-  },
-
-  getById: async (id) => {
-    await delay(400);
-    const tx = transactions.find((t) => t.id === id);
-    if (!tx) throw new Error("Transaction not found");
-    return { ...tx };
-  },
-
-  create: async (data) => {
-    await delay(800);
-    const newTx = { ...data, id: Date.now().toString(), amount: Number(data.amount) };
-    transactions.unshift(newTx);
-    return newTx;
-  },
-
-  update: async (id, data) => {
-    await delay(800);
-    const index = transactions.findIndex((t) => t.id === id);
-    if (index === -1) throw new Error("Not found");
-    transactions[index] = { ...transactions[index], ...data, amount: Number(data.amount) };
-    return transactions[index];
-  },
-
-  delete: async (id) => {
+  getAll: apiHandler(async () => {
     await delay(600);
+
+    return {
+      status: 200,
+      data: {
+        message: "Transactions fetched successfully",
+        data: [...transactions].sort((a, b) => b.date - a.date),
+      },
+    };
+  }),
+
+  getById: apiHandler(async (id) => {
+    await delay(400);
+
+    const tx = transactions.find((t) => t.id === id);
+    if (!tx) {
+      throw {
+        response: {
+          status: 400,
+          data: { message: "Transaction not found" },
+        },
+      };
+    }
+
+    return {
+      status: 200,
+      data: {
+        message: "Transaction fetched successfully",
+        data: tx,
+      },
+    };
+  }),
+
+  create: apiHandler(async (data) => {
+    await delay(800);
+
+    const newTx = {
+      ...data,
+      id: Date.now().toString(),
+      amount: Number(data.amount),
+    };
+
+    transactions.unshift(newTx);
+
+    return {
+      status: 201,
+      data: {
+        message: "Transaction created successfully",
+        data: newTx,
+      },
+    };
+  }),
+
+  update: apiHandler(async (id, data) => {
+    await delay(800);
+
+    const index = transactions.findIndex((t) => t.id === id);
+    if (index === -1) {
+      throw {
+        response: {
+          status: 400,
+          data: { message: "Transaction not found" },
+        },
+      };
+    }
+
+    transactions[index] = {
+      ...transactions[index],
+      ...data,
+      amount: Number(data.amount),
+    };
+
+    return {
+      status: 201,
+      data: {
+        message: "Transaction updated successfully",
+        data: transactions[index],
+      },
+    };
+  }),
+
+  delete: apiHandler(async (id) => {
+    await delay(600);
+
+    const exists = transactions.some((t) => t.id === id);
+    if (!exists) {
+      throw {
+        response: {
+          status: 400,
+          data: { message: "Transaction not found" },
+        },
+      };
+    }
+
     transactions = transactions.filter((t) => t.id !== id);
-    return true;
-  }
+
+    return {
+      status: 201,
+      data: {
+        message: "Transaction deleted successfully",
+        data: true,
+      },
+    };
+  }),
 };

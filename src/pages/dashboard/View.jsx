@@ -9,7 +9,7 @@ import CategoryChart from "./components/CategoryChart";
 const View = () => {
   const { data, loading, error, filter, setFilter } = useDashboard();
 
-  if (loading) return <Loader fullScreen text="Loading Dashboard..." />;
+  if (loading) return <Loader text="Loading Dashboard..." />;
   if (error) return <div className="text-red-500 text-center py-10">{error}</div>;
   if (!data) return null;
 
