@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* Enable dark mode (class-based) */
+@custom-variant dark (&:is(.dark *));
+
+/* Theme customization */
+@theme {
+  /* Example customizations */
+  --color-primary: #2563eb;
+  --font-sans: "Outfit", sans-serif;
+}
+
+/* ---------------- THEME (for animation tokens) ---------------- */
+@theme {
+  --animate-fade-in: fade-in 0.2s ease-out forwards;
+  --animate-slide-up-fade: slide-up-fade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ---------------- KEYFRAMES ---------------- */
+@layer utilities {
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-up-fade {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+}
