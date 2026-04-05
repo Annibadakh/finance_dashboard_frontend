@@ -38,29 +38,64 @@ A modular, feature-first directory architecture is used to ensure high scalabili
 ```text
 src/
 ├── api/
-│   └── apiHandler.js             # Standardized wrapper for mock API responses & delays
-├── components/                     # 🧩 Generic Reusable UI Components
-│   ├── Button.jsx                # Multi-variant, icon-supported button
-│   ├── Drawer.jsx                # Sliding side-panel for forms
-│   ├── LabelInput.jsx / SelectField.jsx / DatePickerField.jsx
-│   ├── Loader.jsx                # SVG Spinners
-│   ├── Pagination.jsx            # Smart pagination with ellipsis logic
-│   └── Table.jsx                 # Generic table with sortable columns & render props
-├── context/                        # 🧠 Global State Management
-│   ├── AuthContext.jsx           # JWT/User session & Role management
-│   ├── ThemeContext.jsx          # Dark mode toggle & persistence
-│   ├── ConfirmModalContext.jsx   # Promise-based global delete modal
-│   └── TransactionContext.jsx    # Centralized pseudo-database
-├── layouts/                        # 📐 Structural Layouts
-│   ├── AppLayout.jsx             # Outlet wrapper
-│   ├── Header.jsx
-│   └── Sidebar.jsx               # Responsive navigation
-├── pages/
-│   └── NotFound.jsx              # Sleek 404 fallback page
-├── Auth/                           # Login Module
-├── dashboard/                      # Dashboard Module (Stats & Overview Charts)
-├── analytics/                      # Analytics Module (Deep dive & Filters)
-└── transactions/                   # Transactions Module (CRUD, List, Forms)
+│   └── apiHandler.js                 # Wrapper for mock API calls & delay simulation
+│
+├── components/                       # 🧩 Reusable UI Components
+│   ├── Button.jsx
+│   ├── Drawer.jsx
+│   ├── LabelInput.jsx
+│   ├── SelectField.jsx
+│   ├── DatePickerField.jsx
+│   ├── Loader.jsx
+│   ├── Pagination.jsx
+│   └── Table.jsx
+│
+├── context/                          # 🧠 Global State Management
+│   ├── AuthContext.jsx
+│   ├── ThemeContext.jsx
+│   └── TransactionContext.jsx
+│
+├── routes/
+│   └── AppRoutes.jsx                 # Centralized routing config
+│
+├── service/                          # 🌐 Global Services
+│   ├── authService.js                # Logout / auth helpers
+│   └── navigationService.js          # Programmatic navigation
+│
+├── pages/                            # 📄 Feature Modules
+│   ├── analytics/
+│   │   ├── components/
+│   │   │   ├── BalanceChart.jsx
+│   │   │   └── ComparisonChart.jsx
+│   │   ├── analytics.service.js
+│   │   ├── useAnalytics.jsx
+│   │   └── View.jsx
+│   │
+│   ├── auth/
+│   │   ├── Login.jsx
+│   │   ├── login.service.js
+│   │   └── useLogin.js
+│   │
+│   ├── dashboard/
+│   │   ├── components/
+│   │   ├── Dashboard.jsx
+│   │   ├── dashboard.service.js
+│   │   ├── useDashboard.jsx
+│   │   └── index.jsx
+│   │
+│   ├── transaction/
+│   │   ├── Create.jsx
+│   │   ├── Edit.jsx
+│   │   ├── List.jsx
+│   │   ├── index.jsx
+│   │   └── transaction.service.js
+│   │
+│   ├── layout/
+│   │   ├── AppLayout.jsx
+│   │   ├── Header.jsx
+│   │   └── Sidebar.jsx
+│   │
+│   └── NotFound.jsx
 ```
 
 ---
@@ -139,4 +174,4 @@ npm run dev
 
 ---
 
-_Designed and engineered with modern React patterns for optimal performance and maintainability._
+_Designed and engineered by @Annibadakh with modern React patterns for optimal performance and maintainability._

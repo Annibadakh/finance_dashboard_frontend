@@ -10,13 +10,13 @@ import Button from "../../components/Button";
 import { BiLogIn } from "react-icons/bi";
 
 const Login = () => {
-  const { formData, errors, isLoading, handleChange, handleSubmit } = useLogin();
+  const { formData, errors, isLoading, handleChange, handleSubmit } =
+    useLogin();
   const { isDarkMode, toggleTheme } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 transition-colors duration-300 relative overflow-hidden">
-
       <button
         onClick={toggleTheme}
         className="absolute bottom-6 right-6 p-3 rounded-full bg-blue-600 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-white dark:text-gray-500 hover:shadow-md transition-all z-10"
@@ -25,19 +25,19 @@ const Login = () => {
       </button>
 
       <div className="w-full max-w-md p-8 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/20 dark:border-gray-800 rounded-3xl shadow-2xl z-10 mx-4">
-
         <div className="flex flex-col items-center mb-8">
           <div className="w-12 h-12 bg-linear-to-tr from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center mb-4">
             <RiWallet3Line className="text-white text-2xl" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Welcome to PayFlow</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Welcome to PayFlow
+          </h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
             Sign in to manage your finances
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-
           <LabelInput
             label="Email Address"
             name="email"
@@ -70,17 +70,6 @@ const Login = () => {
             </button>
           </div>
 
-          {/* <div className="flex items-center justify-between">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-              <span className="text-sm text-gray-600 dark:text-gray-400">Remember me</span>
-            </label>
-
-            <a href="#" className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
-              Forgot password?
-            </a>
-          </div> */}
-
           <Button
             iconLeft={BiLogIn}
             type="submit"
@@ -89,8 +78,23 @@ const Login = () => {
           >
             Sign In
           </Button>
-
         </form>
+        <div>
+          <div className="text-center mt-6 text-sm line- text-gray-500 dark:text-gray-400">
+            Admin Credentials: <br />
+            Email:{" "}
+            <span className="font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">{`admin@payflow.com`}</span>{" "}
+            Password:{" "}
+            <span className="font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">{`password123`}</span>
+          </div>
+          <div className="text-center mt-6 text-sm text-gray-500 dark:text-gray-400">
+            Viewer Credentials: <br />
+            Email:{" "}
+            <span className="font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">{`viewer@payflow.com`}</span>{" "}
+            Password:{" "}
+            <span className="font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">{`password123`}</span>
+          </div>
+        </div>
       </div>
     </div>
   );

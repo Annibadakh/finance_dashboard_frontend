@@ -2,7 +2,7 @@ import { apiHandler } from "../../api/apiHandler";
 export const loginService = apiHandler(async (email, password) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (email === "admin@example.com" && password === "password123") {
+      if (email === "admin@payflow.com" && password === "password123") {
         resolve({
           status: 201,
           data: {
@@ -16,7 +16,7 @@ export const loginService = apiHandler(async (email, password) => {
             }
           }
         });
-      } else if (email === "viewer@example.com" && password === "password123") {
+      } else if (email === "viewer@payflow.com" && password === "password123") {
         resolve({
           status: 201,
           data: {
