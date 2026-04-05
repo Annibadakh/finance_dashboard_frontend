@@ -8,7 +8,7 @@ let dummyData = [
   {
     id: "1",
     description: "TechCorp Salary",
-    amount: 5200,
+    amount: 482248,
     category: "Salary",
     type: "income",
     date: new Date(now - 2 * day),
@@ -16,7 +16,7 @@ let dummyData = [
   {
     id: "2",
     description: "Freelance Website",
-    amount: 1200,
+    amount: 111288,
     category: "Freelance",
     type: "income",
     date: new Date(now - 5 * day),
@@ -24,7 +24,7 @@ let dummyData = [
   {
     id: "3",
     description: "Stock Dividend",
-    amount: 300,
+    amount: 27822,
     category: "Investment",
     type: "income",
     date: new Date(now - 15 * day),
@@ -32,7 +32,7 @@ let dummyData = [
   {
     id: "4",
     description: "House Rent",
-    amount: 1500,
+    amount: 139110,
     category: "Rent",
     type: "expense",
     date: new Date(now - 3 * day),
@@ -40,7 +40,7 @@ let dummyData = [
   {
     id: "5",
     description: "Swiggy Order",
-    amount: 250,
+    amount: 23185,
     category: "Food",
     type: "expense",
     date: new Date(now - 1 * day),
@@ -48,7 +48,7 @@ let dummyData = [
   {
     id: "6",
     description: "Uber Ride",
-    amount: 120,
+    amount: 11128.8,
     category: "Transport",
     type: "expense",
     date: new Date(now - 4 * day),
@@ -56,7 +56,7 @@ let dummyData = [
   {
     id: "7",
     description: "AWS Hosting",
-    amount: 180,
+    amount: 16693.2,
     category: "Software",
     type: "expense",
     date: new Date(now - 6 * day),
@@ -64,7 +64,7 @@ let dummyData = [
   {
     id: "8",
     description: "Netflix Subscription",
-    amount: 15,
+    amount: 1391.1,
     category: "Entertainment",
     type: "expense",
     date: new Date(now - 10 * day),
@@ -72,7 +72,7 @@ let dummyData = [
   {
     id: "9",
     description: "Electricity Bill",
-    amount: 220,
+    amount: 20402.8,
     category: "Utilities",
     type: "expense",
     date: new Date(now - 12 * day),
@@ -80,7 +80,7 @@ let dummyData = [
   {
     id: "14",
     description: "Client Payment",
-    amount: 2000,
+    amount: 185480,
     category: "Freelance",
     type: "income",
     date: new Date(now - 0.5 * day),
@@ -88,7 +88,7 @@ let dummyData = [
   {
     id: "15",
     description: "Coffee",
-    amount: 50,
+    amount: 4637,
     category: "Food",
     type: "expense",
     date: new Date(now - 0.2 * day),
@@ -98,7 +98,7 @@ let dummyData = [
   {
     id: "16",
     description: "March Salary",
-    amount: 5100,
+    amount: 472974,
     category: "Salary",
     type: "income",
     date: new Date(now - 35 * day),
@@ -106,7 +106,7 @@ let dummyData = [
   {
     id: "17",
     description: "Client App Payment",
-    amount: 1800,
+    amount: 166932,
     category: "Freelance",
     type: "income",
     date: new Date(now - 40 * day),
@@ -114,7 +114,7 @@ let dummyData = [
   {
     id: "18",
     description: "Groceries",
-    amount: 600,
+    amount: 55644,
     category: "Food",
     type: "expense",
     date: new Date(now - 32 * day),
@@ -122,7 +122,7 @@ let dummyData = [
   {
     id: "19",
     description: "Internet Bill",
-    amount: 100,
+    amount: 9274,
     category: "Utilities",
     type: "expense",
     date: new Date(now - 38 * day),
@@ -130,7 +130,7 @@ let dummyData = [
   {
     id: "20",
     description: "Bike Fuel",
-    amount: 300,
+    amount: 27822,
     category: "Transport",
     type: "expense",
     date: new Date(now - 45 * day),
@@ -138,7 +138,7 @@ let dummyData = [
   {
     id: "21",
     description: "Zomato Dinner",
-    amount: 400,
+    amount: 37096,
     category: "Food",
     type: "expense",
     date: new Date(now - 50 * day),
@@ -146,7 +146,7 @@ let dummyData = [
   {
     id: "22",
     description: "Mutual Fund SIP",
-    amount: 1000,
+    amount: 92740,
     category: "Investment",
     type: "expense",
     date: new Date(now - 55 * day),
@@ -156,7 +156,7 @@ let dummyData = [
   {
     id: "23",
     description: "February Salary",
-    amount: 5000,
+    amount: 463700,
     category: "Salary",
     type: "income",
     date: new Date(now - 65 * day),
@@ -164,7 +164,7 @@ let dummyData = [
   {
     id: "24",
     description: "Landing Page Project",
-    amount: 1500,
+    amount: 139110,
     category: "Freelance",
     type: "income",
     date: new Date(now - 70 * day),
@@ -172,7 +172,7 @@ let dummyData = [
   {
     id: "25",
     description: "Electricity Bill",
-    amount: 200,
+    amount: 18548,
     category: "Utilities",
     type: "expense",
     date: new Date(now - 68 * day),
@@ -180,7 +180,7 @@ let dummyData = [
   {
     id: "26",
     description: "Gym Renewal",
-    amount: 120,
+    amount: 11128.8,
     category: "Health",
     type: "expense",
     date: new Date(now - 75 * day),
@@ -188,7 +188,7 @@ let dummyData = [
   {
     id: "27",
     description: "Amazon Shopping",
-    amount: 800,
+    amount: 74192,
     category: "Shopping",
     type: "expense",
     date: new Date(now - 80 * day),
@@ -196,7 +196,7 @@ let dummyData = [
   {
     id: "28",
     description: "Train Tickets",
-    amount: 450,
+    amount: 41733,
     category: "Travel",
     type: "expense",
     date: new Date(now - 85 * day),
@@ -206,7 +206,7 @@ let dummyData = [
   {
     id: "29",
     description: "January Salary",
-    amount: 4800,
+    amount: 445152,
     category: "Salary",
     type: "income",
     date: new Date(now - 95 * day),
@@ -214,7 +214,7 @@ let dummyData = [
   {
     id: "30",
     description: "Portfolio Website Client",
-    amount: 2000,
+    amount: 185480,
     category: "Freelance",
     type: "income",
     date: new Date(now - 100 * day),
@@ -222,7 +222,7 @@ let dummyData = [
   {
     id: "31",
     description: "New Year Party",
-    amount: 700,
+    amount: 64918,
     category: "Entertainment",
     type: "expense",
     date: new Date(now - 98 * day),
@@ -230,7 +230,7 @@ let dummyData = [
   {
     id: "32",
     description: "Laptop Accessories",
-    amount: 1200,
+    amount: 111288,
     category: "Electronics",
     type: "expense",
     date: new Date(now - 105 * day),
@@ -238,7 +238,7 @@ let dummyData = [
   {
     id: "33",
     description: "Electric Bill",
-    amount: 180,
+    amount: 16693.2,
     category: "Utilities",
     type: "expense",
     date: new Date(now - 110 * day),
@@ -246,7 +246,7 @@ let dummyData = [
   {
     id: "34",
     description: "Flight Booking",
-    amount: 3500,
+    amount: 324590,
     category: "Travel",
     type: "expense",
     date: new Date(now - 115 * day),

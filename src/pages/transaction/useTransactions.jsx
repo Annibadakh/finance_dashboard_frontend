@@ -23,7 +23,6 @@ export const useTransactions = (id = null) => {
         setSingleData(res); // correct shape
       } else {
         const res = await transactionService.getAll(null, { getAll });
-        console.log(res);
         setData(res); // correct shape
       }
     } catch (err) {
@@ -40,12 +39,8 @@ export const useTransactions = (id = null) => {
   const handleDelete = async (deleteId) => {
     try {
       await transactionService.delete(deleteId, { getAll, remove });
-
-      // no need to manually filter
-      // context already updated → just refetch or rely on context
-      fetchData(); // safest (keeps service flow consistent)
     } catch (err) {
-      setError(err?.response?.data?.message || "Delete failed");
+      setError(err.message || "Delete failed");
     }
   };
 

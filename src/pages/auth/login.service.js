@@ -9,7 +9,7 @@ export const loginService = apiHandler(async (email, password) => {
             message: "Admin User",
             data: {
               id: 1,
-              name: "Aniket Badakh",
+              name: "Admin User",
               email: email,
               token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC",
               role: "admin"
