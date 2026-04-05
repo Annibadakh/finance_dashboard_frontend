@@ -9,7 +9,7 @@ const Drawer = ({ children, onClose, title }) => {
     setIsOpen(true);
     // Prevent background scrolling
     document.body.style.overflow = "hidden";
-    
+
     return () => {
       document.body.style.overflow = "unset";
     };
@@ -57,8 +57,8 @@ const Drawer = ({ children, onClose, title }) => {
         <div className="flex-1 overflow-y-auto p-6 bg-white dark:bg-gray-900">
           {/* We clone the children to pass the handleClose function to them, 
               so buttons inside the form can trigger the smooth exit animation */}
-          {React.Children.map(children, child =>
-            React.cloneElement(child, { closeDrawer: handleClose })
+          {React.Children.map(children, (child) =>
+            React.cloneElement(child, { closeDrawer: handleClose }),
           )}
         </div>
       </div>

@@ -10,7 +10,8 @@ import Button from "../../components/Button";
 // Exported standalone form to reuse in Edit
 export const TransactionForm = ({ initialData, title }) => {
   const navigate = useNavigate();
-  const { formData, errors, isSubmitting, handleChange, handleSubmit } = useCreate(initialData);
+  const { formData, errors, isSubmitting, handleChange, handleSubmit } =
+    useCreate(initialData);
 
   const categoryOptions = [
     { value: "Salary", label: "Salary" },
@@ -25,8 +26,10 @@ export const TransactionForm = ({ initialData, title }) => {
   ];
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-900 p-6 sm:p-8 rounded-3xl border border-gray-200 dark:border-gray-800 space-y-6 shadow-sm">
-
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white dark:bg-gray-900 p-6 sm:p-8 rounded-3xl border border-gray-200 dark:border-gray-800 space-y-6 shadow-sm"
+    >
       <LabelInput
         label="Description"
         placeholder="e.g. AWS Web Services"
@@ -37,7 +40,7 @@ export const TransactionForm = ({ initialData, title }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <LabelInput
-          label="Amount ($)"
+          label="Amount (₹)"
           type="number"
           placeholder="0.00"
           value={formData.amount}
@@ -70,8 +73,19 @@ export const TransactionForm = ({ initialData, title }) => {
       </div>
 
       <div className="pt-4 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-4">
-        <Button variant="secondary" outline onClick={() => navigate("/dashboard/transactions")}>Cancel</Button>
-        <Button variant="primary" type="submit" isLoading={isSubmitting} iconLeft={FiSave}>
+        <Button
+          variant="secondary"
+          outline
+          onClick={() => navigate("/dashboard/transactions")}
+        >
+          Cancel
+        </Button>
+        <Button
+          variant="primary"
+          type="submit"
+          isLoading={isSubmitting}
+          iconLeft={FiSave}
+        >
           {initialData ? "Update Transaction" : "Save Transaction"}
         </Button>
       </div>

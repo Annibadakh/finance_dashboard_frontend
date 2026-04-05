@@ -1,33 +1,27 @@
 import { apiHandler } from "../../api/apiHandler";
 
-// In-memory mock data
-let transactions = [
-  { id: "1", description: "TechCorp Salary", amount: 5200, category: "Salary", type: "income", date: new Date(2023, 9, 25) },
-  { id: "2", description: "AWS Hosting", amount: 150, category: "Software", type: "expense", date: new Date(2023, 9, 26) },
-  { id: "3", description: "Client Freelance", amount: 850, category: "Freelance", type: "income", date: new Date(2023, 9, 28) },
-  { id: "4", description: "WeWork Office", amount: 400, category: "Rent", type: "expense", date: new Date(2023, 9, 29) },
-  { id: "5", description: "Figma Sub", amount: 15, category: "Software", type: "expense", date: new Date(2023, 9, 30) },
-];
-
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export const transactionService = {
-  getAll: apiHandler(async () => {
+  getAll: apiHandler(async (_, { getAll }) => {
     await delay(600);
 
+    const data = getAll().sort((a, b) => b.date - a.date);
+    console.log(data)
     return {
       status: 200,
       data: {
         message: "Transactions fetched successfully",
-        data: [...transactions].sort((a, b) => b.date - a.date),
+        data,
       },
     };
   }),
 
-  getById: apiHandler(async (id) => {
+  getById: apiHandler(async (id, { getAll }) => {
     await delay(400);
 
-    const tx = transactions.find((t) => t.id === id);
+    const tx = getAll().find((t) => t.id === id);
+
     if (!tx) {
       throw {
         response: {
@@ -46,7 +40,7 @@ export const transactionService = {
     };
   }),
 
-  create: apiHandler(async (data) => {
+  create: apiHandler(async (data, { add }) => {
     await delay(800);
 
     const newTx = {
@@ -55,7 +49,7 @@ export const transactionService = {
       amount: Number(data.amount),
     };
 
-    transactions.unshift(newTx);
+    add(newTx); // ✅ context
 
     return {
       status: 201,
@@ -66,11 +60,12 @@ export const transactionService = {
     };
   }),
 
-  update: apiHandler(async (id, data) => {
+  update: apiHandler(async (id, data, { getAll, update }) => {
     await delay(800);
 
-    const index = transactions.findIndex((t) => t.id === id);
-    if (index === -1) {
+    const existing = getAll().find((t) => t.id === id);
+
+    if (!existing) {
       throw {
         response: {
           status: 400,
@@ -79,25 +74,27 @@ export const transactionService = {
       };
     }
 
-    transactions[index] = {
-      ...transactions[index],
+    const updatedTx = {
       ...data,
       amount: Number(data.amount),
     };
+
+    update(id, updatedTx); // ✅ context
 
     return {
       status: 201,
       data: {
         message: "Transaction updated successfully",
-        data: transactions[index],
+        data: { ...existing, ...updatedTx },
       },
     };
   }),
 
-  delete: apiHandler(async (id) => {
+  delete: apiHandler(async (id, { getAll, remove }) => {
     await delay(600);
 
-    const exists = transactions.some((t) => t.id === id);
+    const exists = getAll().some((t) => t.id === id);
+
     if (!exists) {
       throw {
         response: {
@@ -107,7 +104,7 @@ export const transactionService = {
       };
     }
 
-    transactions = transactions.filter((t) => t.id !== id);
+    remove(id); // ✅ context
 
     return {
       status: 201,

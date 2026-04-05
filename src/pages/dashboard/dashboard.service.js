@@ -1,69 +1,76 @@
+import { subDays, isAfter, format } from "date-fns";
+
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 export const dashboardService = {
-  getSummary: async (filter = '30days') => {
-    await delay(700); // Simulate network
+  getSummary: async (filter = '30days', transactions) => {
+    await delay(700);
+    const allTx = transactions;
 
-    // Mock response based on filters
-    if (filter === '7days') {
-      return {
-        stats: { balance: 12500, income: 3200, expenses: 850, growth: "+2.4%" },
-        insights: { topCategory: "Software", topCategoryAmount: 450 },
-        trendData: [
-          { date: "Mon", income: 400, expense: 200 },
-          { date: "Tue", income: 300, expense: 150 },
-          { date: "Wed", income: 800, expense: 100 },
-          { date: "Thu", income: 200, expense: 50 },
-          { date: "Fri", income: 500, expense: 200 },
-          { date: "Sat", income: 1000, expense: 150 },
-          { date: "Sun", income: 0, expense: 0 },
-        ],
-        categoryData: [
-          { name: "Software", value: 450 },
-          { name: "Rent", value: 200 },
-          { name: "Food", value: 100 },
-          { name: "Transport", value: 100 },
-        ]
-      };
-    }
+    // 1. Determine date threshold based on filter
+    let daysToSubtract = 30;
+    let dateFormat = "dd MMM"; // Default for 30 days
+    if (filter === '7days') { daysToSubtract = 7; dateFormat = "EEE"; } // Mon, Tue
+    if (filter === 'year') { daysToSubtract = 365; dateFormat = "MMM"; } // Jan, Feb
 
-    if (filter === 'year') {
-      return {
-        stats: { balance: 45000, income: 85000, expenses: 40000, growth: "+18.5%" },
-        insights: { topCategory: "Rent", topCategoryAmount: 14400 },
-        trendData: [
-          { date: "Jan", income: 6000, expense: 3200 },
-          { date: "Feb", income: 6200, expense: 3100 },
-          { date: "Mar", income: 7500, expense: 4000 },
-          { date: "Apr", income: 5800, expense: 2900 },
-          { date: "May", income: 8000, expense: 3500 },
-          { date: "Jun", income: 9000, expense: 4200 },
-        ],
-        categoryData: [
-          { name: "Rent", value: 14400 },
-          { name: "Software", value: 8500 },
-          { name: "Marketing", value: 12000 },
-          { name: "Travel", value: 5100 },
-        ]
-      };
-    }
+    const thresholdDate = subDays(new Date(), daysToSubtract);
 
-    // Default to '30days'
+    // 2. Filter transactions
+    const filteredTx = allTx.filter(tx => isAfter(tx.date, thresholdDate));
+
+    // 3. Calculate Stats
+    let totalIncome = 0;
+    let totalExpenses = 0;
+
+    filteredTx.forEach(tx => {
+      if (tx.type === 'income') totalIncome += tx.amount;
+      if (tx.type === 'expense') totalExpenses += tx.amount;
+    });
+
+    const balance = totalIncome - totalExpenses;
+
+    // 4. Calculate Category Breakdown & Top Category
+    const categoryMap = {};
+    filteredTx.forEach(tx => {
+      if (tx.type === 'expense') {
+        categoryMap[tx.category] = (categoryMap[tx.category] || 0) + tx.amount;
+      }
+    });
+
+    const categoryData = Object.keys(categoryMap)
+      .map(key => ({
+        name: key,
+        value: categoryMap[key]
+      }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 5);
+
+    const topCategory = categoryData.length > 0 ? categoryData[0].name : "None";
+    const topCategoryAmount = categoryData.length > 0 ? categoryData[0].value : 0;
+
+    // 5. Calculate Trend Data (Group by date format)
+    const trendMap = {};
+    // Pre-fill last N days/months to ensure continuous chart (simplified here to just existing data)
+    filteredTx.sort((a, b) => a.date - b.date).forEach(tx => {
+      const dateKey = format(tx.date, dateFormat);
+      if (!trendMap[dateKey]) trendMap[dateKey] = { date: dateKey, income: 0, expense: 0 };
+
+      if (tx.type === 'income') trendMap[dateKey].income += tx.amount;
+      if (tx.type === 'expense') trendMap[dateKey].expense += tx.amount;
+    });
+
+    const trendData = Object.values(trendMap);
+
     return {
-      stats: { balance: 24500, income: 12400, expenses: 4200, growth: "+8.2%" },
-      insights: { topCategory: "Marketing", topCategoryAmount: 1800 },
-      trendData: [
-        { date: "Week 1", income: 3000, expense: 1200 },
-        { date: "Week 2", income: 2500, expense: 900 },
-        { date: "Week 3", income: 4100, expense: 1500 },
-        { date: "Week 4", income: 2800, expense: 600 },
-      ],
-      categoryData: [
-        { name: "Marketing", value: 1800 },
-        { name: "Software", value: 1200 },
-        { name: "Rent", value: 800 },
-        { name: "Office", value: 400 },
-      ]
+      stats: {
+        balance,
+        income: totalIncome,
+        expenses: totalExpenses,
+        growth: "+5.2%" // Mocked growth
+      },
+      insights: { topCategory, topCategoryAmount },
+      trendData,
+      categoryData
     };
   }
 };

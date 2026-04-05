@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { dashboardService } from "./dashboard.service";
+import { useTransaction } from "../../context/TransactionContext";
 
 export const useDashboard = () => {
+  const { getAll } = useTransaction();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -11,7 +13,7 @@ export const useDashboard = () => {
     const fetchDashboardData = async () => {
       setLoading(true);
       try {
-        const res = await dashboardService.getSummary(filter);
+        const res = await dashboardService.getSummary(filter, getAll());
         setData(res);
         setError("");
       } catch (err) {
@@ -29,6 +31,6 @@ export const useDashboard = () => {
     loading,
     error,
     filter,
-    setFilter
+    setFilter,
   };
 };

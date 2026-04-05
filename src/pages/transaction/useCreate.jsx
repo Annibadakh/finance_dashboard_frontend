@@ -2,10 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { transactionService } from "./transaction.service";
+import { useTransaction } from "../../context/TransactionContext";
 
 const schema = yup.object().shape({
   description: yup.string().required("Description is required"),
-  amount: yup.number().positive("Amount must be positive").required("Amount is required"),
+  amount: yup
+    .number()
+    .positive("Amount must be positive")
+    .required("Amount is required"),
   category: yup.string().required("Category is required"),
   type: yup.string().oneOf(["income", "expense"]).required("Type is required"),
   date: yup.date().required("Date is required").nullable(),
@@ -14,6 +18,8 @@ const schema = yup.object().shape({
 export const useCreate = (initialData = null) => {
   const navigate = useNavigate();
   const isEdit = !!initialData;
+
+  const { add, update, getAll } = useTransaction(); // ✅ context
 
   const [formData, setFormData] = useState({
     description: "",
@@ -31,8 +37,11 @@ export const useCreate = (initialData = null) => {
   }, [initialData]);
 
   const handleChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-    if (errors[field]) setErrors(prev => ({ ...prev, [field]: "" }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
+
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: "" }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -42,19 +51,25 @@ export const useCreate = (initialData = null) => {
 
     try {
       await schema.validate(formData, { abortEarly: false });
-      
+
       if (isEdit) {
-        await transactionService.update(initialData.id, formData);
+        await transactionService.update(initialData.id, formData, {
+          getAll,
+          update,
+        });
       } else {
-        await transactionService.create(formData);
+        await transactionService.create(formData, {
+          add,
+        });
       }
-      
-      // Navigate back to list on success
+
       navigate("/dashboard/transactions");
     } catch (err) {
       if (err instanceof yup.ValidationError) {
         const valErrors = {};
-        err.inner.forEach(error => { valErrors[error.path] = error.message; });
+        err.inner.forEach((error) => {
+          valErrors[error.path] = error.message;
+        });
         setErrors(valErrors);
       }
     } finally {
@@ -62,5 +77,11 @@ export const useCreate = (initialData = null) => {
     }
   };
 
-  return { formData, errors, isSubmitting, handleChange, handleSubmit };
+  return {
+    formData,
+    errors,
+    isSubmitting,
+    handleChange,
+    handleSubmit,
+  };
 };

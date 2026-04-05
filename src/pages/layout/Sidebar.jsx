@@ -1,31 +1,56 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { RiDashboardLine, RiExchangeDollarLine, RiWallet3Line, RiSettings4Line, RiLogoutBoxRLine, RiCloseLine } from "react-icons/ri";
+import {
+  RiDashboardLine,
+  RiExchangeDollarLine,
+  RiWallet3Line,
+  RiSettings4Line,
+  RiLogoutBoxRLine,
+  RiCloseLine,
+} from "react-icons/ri";
 import { FiPieChart } from "react-icons/fi";
 import { triggerLogout } from "../../services/authService";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const menuItems = [
-    { name: "Dashboard", icon: <RiDashboardLine size={20} />, path: "/dashboard", exact: true },
-    { name: "Transactions", icon: <RiExchangeDollarLine size={20} />, path: "/dashboard/transactions" },
-    { name: "My Wallets", icon: <RiWallet3Line size={20} />, path: "/wallets" },
-    { name: "Analytics", icon: <FiPieChart size={20} />, path: "/analytics" },
-    { name: "Settings", icon: <RiSettings4Line size={20} />, path: "/settings" },
+    {
+      name: "Dashboard",
+      icon: <RiDashboardLine size={20} />,
+      path: "/dashboard",
+      exact: true,
+    },
+    {
+      name: "Transactions",
+      icon: <RiExchangeDollarLine size={20} />,
+      path: "/dashboard/transactions",
+    },
+    {
+      name: "Analytics",
+      icon: <FiPieChart size={20} />,
+      path: "/dashboard/analytics",
+    },
+    {
+      name: "Settings",
+      icon: <RiSettings4Line size={20} />,
+      path: "/settings",
+    },
   ];
 
   return (
     <>
       {/* Mobile Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity md:hidden ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"
-          }`}
+        className={`fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity md:hidden ${
+          isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
         onClick={toggleSidebar}
       ></div>
 
       {/* Sidebar Container */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transform transition-transform duration-300 ease-in-out flex flex-col ${isOpen ? "translate-x-0" : "-translate-x-full"
-          } md:relative md:translate-x-0`}
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transform transition-transform duration-300 ease-in-out flex flex-col ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } md:relative md:translate-x-0`}
       >
         {/* Logo Area */}
         <div className="flex items-center justify-between h-20 px-6 border-b border-gray-100 dark:border-gray-800">
@@ -38,7 +63,10 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </span>
           </div>
           {/* Mobile Close Button */}
-          <button onClick={toggleSidebar} className="md:hidden text-gray-500 hover:text-gray-900 dark:hover:text-white">
+          <button
+            onClick={toggleSidebar}
+            className="md:hidden text-gray-500 hover:text-gray-900 dark:hover:text-white"
+          >
             <RiCloseLine size={24} />
           </button>
         </div>
@@ -51,9 +79,10 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               to={item.path}
               end={item.exact}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${isActive
-                  ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium"
-                  : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white"
+                `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                  isActive
+                    ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium"
+                    : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white"
                 }`
               }
             >

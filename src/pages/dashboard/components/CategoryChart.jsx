@@ -1,7 +1,14 @@
 import React from "react";
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
 
-const COLORS = ['#3b82f6', '#8b5cf6', '#f43f5e', '#f59e0b', '#10b981'];
+const COLORS = ["#3b82f6", "#8b5cf6", "#f43f5e", "#f59e0b", "#10b981"];
 
 const CategoryChart = ({ data }) => {
   return (
@@ -19,14 +26,27 @@ const CategoryChart = ({ data }) => {
             stroke="none"
           >
             {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
             ))}
           </Pie>
-          <Tooltip 
-            formatter={(value) => `$${value}`}
-            contentStyle={{ backgroundColor: '#1f2937', borderColor: '#374151', borderRadius: '12px', color: '#fff' }}
+          <Tooltip
+            formatter={(value) => `₹${value}`}
+            contentStyle={{
+              backgroundColor: "#1f2937",
+              borderColor: "#374151",
+              borderRadius: "12px",
+              color: "#fff",
+            }}
           />
-          <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ fontSize: '12px', color: '#9ca3af' }} />
+          <Legend
+            verticalAlign="bottom"
+            height={36}
+            iconType="circle"
+            wrapperStyle={{ fontSize: "12px", color: "#9ca3af" }}
+          />
         </PieChart>
       </ResponsiveContainer>
     </div>

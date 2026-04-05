@@ -1,7 +1,10 @@
 import { useState, useEffect, useMemo } from "react";
 import { transactionService } from "./transaction.service";
+import { useTransaction } from "../../context/TransactionContext";
 
 export const useTransactions = (id = null) => {
+  const { getAll, remove, transactions } = useTransaction(); // ✅ context
+
   const [data, setData] = useState([]);
   const [singleData, setSingleData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -15,14 +18,16 @@ export const useTransactions = (id = null) => {
     setLoading(true);
     try {
       if (id) {
-        const res = await transactionService.getById(id);
-        setSingleData(res);
+        const res = await transactionService.getById(id, { getAll });
+
+        setSingleData(res); // ✅ correct shape
       } else {
-        const res = await transactionService.getAll();
-        setData(res);
+        const res = await transactionService.getAll(null, { getAll });
+        console.log(res);
+        setData(res); // ✅ correct shape
       }
     } catch (err) {
-      setError(err.message);
+      setError(err?.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -30,18 +35,29 @@ export const useTransactions = (id = null) => {
 
   useEffect(() => {
     fetchData();
-  }, [id]);
+  }, [id, transactions]);
 
   const handleDelete = async (deleteId) => {
-    await transactionService.delete(deleteId);
-    setData(prev => prev.filter(item => item.id !== deleteId));
+    try {
+      await transactionService.delete(deleteId, { getAll, remove });
+
+      // ❌ no need to manually filter
+      // context already updated → just refetch or rely on context
+      fetchData(); // ✅ safest (keeps service flow consistent)
+    } catch (err) {
+      setError(err?.response?.data?.message || "Delete failed");
+    }
   };
 
-  // Local filtering logic
+  // ✅ Local filtering logic
   const filteredData = useMemo(() => {
-    return data.filter(item => {
-      const matchesSearch = item.description.toLowerCase().includes(searchTerm.toLowerCase());
+    return data.filter((item) => {
+      const matchesSearch = item.description
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+
       const matchesType = filterType === "all" || item.type === filterType;
+
       return matchesSearch && matchesType;
     });
   }, [data, searchTerm, filterType]);
@@ -56,6 +72,6 @@ export const useTransactions = (id = null) => {
     filterType,
     setFilterType,
     handleDelete,
-    refreshData: fetchData
+    refreshData: fetchData,
   };
 };

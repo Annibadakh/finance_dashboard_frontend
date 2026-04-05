@@ -40,3 +40,53 @@
     }
   }
 }
+
+/* Container */
+.custom-datepicker {
+  @apply bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-lg p-3;
+}
+
+/* Header */
+.custom-datepicker .react-datepicker__header {
+  @apply bg-transparent border-none;
+}
+
+/* Month text */
+.custom-datepicker .react-datepicker__current-month {
+  @apply text-gray-900 dark:text-white font-semibold;
+}
+
+/* Day names */
+.custom-datepicker .react-datepicker__day-name {
+  @apply text-gray-400 text-sm;
+}
+
+/* Days */
+.custom-datepicker .react-datepicker__day {
+  @apply text-gray-700 dark:text-gray-300 rounded-lg transition-all;
+}
+
+/* Hover */
+.custom-datepicker .react-datepicker__day:hover {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+/* Selected day */
+.custom-datepicker .react-datepicker__day--selected {
+  @apply bg-blue-600 text-white font-medium;
+}
+
+/* Today */
+.custom-datepicker .react-datepicker__day--today {
+  @apply border border-blue-500;
+}
+
+/* Disabled */
+.custom-datepicker .react-datepicker__day--disabled {
+  @apply text-gray-300 cursor-not-allowed;
+}
+
+/* Navigation arrows */
+.custom-datepicker .react-datepicker__navigation {
+  @apply top-3;
+}

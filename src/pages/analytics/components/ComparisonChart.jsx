@@ -1,31 +1,23 @@
+import React from "react";
 import {
-  AreaChart,
-  Area,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
+  Legend,
   ResponsiveContainer,
 } from "recharts";
 
-const TrendChart = ({ data }) => {
+const ComparisonChart = ({ data }) => {
   return (
-    <div className="h-75 w-full mt-4">
+    <div className="h-[350px] w-full mt-4">
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart
+        <BarChart
           data={data}
           margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
         >
-          <defs>
-            <linearGradient id="colorIncome" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
-              <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
-            </linearGradient>
-            <linearGradient id="colorExpense" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#f43f5e" stopOpacity={0.3} />
-              <stop offset="95%" stopColor="#f43f5e" stopOpacity={0} />
-            </linearGradient>
-          </defs>
           <CartesianGrid
             strokeDasharray="3 3"
             vertical={false}
@@ -33,7 +25,7 @@ const TrendChart = ({ data }) => {
             opacity={0.2}
           />
           <XAxis
-            dataKey="date"
+            dataKey="month"
             axisLine={false}
             tickLine={false}
             tick={{ fill: "#6b7280", fontSize: 12 }}
@@ -52,30 +44,32 @@ const TrendChart = ({ data }) => {
               borderRadius: "12px",
               color: "#fff",
             }}
-            itemStyle={{ color: "#fff" }}
+            cursor={{ fill: "#374151", opacity: 0.1 }}
           />
-          <Area
-            type="monotone"
+          <Legend
+            verticalAlign="top"
+            height={36}
+            iconType="circle"
+            wrapperStyle={{ fontSize: "12px" }}
+          />
+          <Bar
             dataKey="income"
-            stroke="#10b981"
-            strokeWidth={3}
-            fillOpacity={1}
-            fill="url(#colorIncome)"
             name="Income"
+            fill="#10b981"
+            radius={[4, 4, 0, 0]}
+            barSize={20}
           />
-          <Area
-            type="monotone"
+          <Bar
             dataKey="expense"
-            stroke="#f43f5e"
-            strokeWidth={3}
-            fillOpacity={1}
-            fill="url(#colorExpense)"
-            name="Expenses"
+            name="Expense"
+            fill="#f43f5e"
+            radius={[4, 4, 0, 0]}
+            barSize={20}
           />
-        </AreaChart>
+        </BarChart>
       </ResponsiveContainer>
     </div>
   );
 };
 
-export default TrendChart;
+export default ComparisonChart;

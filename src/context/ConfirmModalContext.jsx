@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useRef, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useRef,
+  useCallback,
+} from "react";
 import ConfirmModal from "../components/ConfirmModal";
 
 const ConfirmModalContext = createContext();
@@ -10,20 +16,36 @@ export const ConfirmModalProvider = ({ children }) => {
     desc: "",
     confirmText: "Delete",
     cancelText: "Cancel",
-    type: "danger" // can be danger, warning, or info
+    type: "danger", // can be danger, warning, or info
   });
 
   // useRef to store the Promise resolve function
   const resolver = useRef(null);
 
   // The function exposed to the rest of the app
-  const confirm = useCallback(({ title, desc, confirmText = "Delete", cancelText = "Cancel", type = "danger" }) => {
-    setModalState({ isOpen: true, title, desc, confirmText, cancelText, type });
-    
-    return new Promise((resolve) => {
-      resolver.current = resolve;
-    });
-  }, []);
+  const confirm = useCallback(
+    ({
+      title,
+      desc,
+      confirmText = "Delete",
+      cancelText = "Cancel",
+      type = "danger",
+    }) => {
+      setModalState({
+        isOpen: true,
+        title,
+        desc,
+        confirmText,
+        cancelText,
+        type,
+      });
+
+      return new Promise((resolve) => {
+        resolver.current = resolve;
+      });
+    },
+    [],
+  );
 
   const handleConfirm = () => {
     setModalState((prev) => ({ ...prev, isOpen: false }));
@@ -39,10 +61,10 @@ export const ConfirmModalProvider = ({ children }) => {
     <ConfirmModalContext.Provider value={{ confirm }}>
       {children}
       {/* The actual Modal UI is injected globally here */}
-      <ConfirmModal 
-        {...modalState} 
-        onConfirm={handleConfirm} 
-        onCancel={handleCancel} 
+      <ConfirmModal
+        {...modalState}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
       />
     </ConfirmModalContext.Provider>
   );
