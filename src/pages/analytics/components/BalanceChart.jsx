@@ -1,4 +1,3 @@
-import React from "react";
 import {
   LineChart,
   Line,
@@ -11,7 +10,7 @@ import {
 
 const BalanceChart = ({ data }) => {
   return (
-    <div className="h-[300px] w-full mt-4">
+    <div className="h-75 w-full mt-4">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={data}

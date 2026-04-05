@@ -1,4 +1,3 @@
-import React from "react";
 import {
   BarChart,
   Bar,
@@ -12,7 +11,7 @@ import {
 
 const ComparisonChart = ({ data }) => {
   return (
-    <div className="h-[350px] w-full mt-4">
+    <div className="h-87.5 w-full mt-4">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           data={data}

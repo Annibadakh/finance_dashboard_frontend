@@ -19,11 +19,11 @@ export const useCreate = (initialData = null) => {
   const navigate = useNavigate();
   const isEdit = !!initialData;
 
-  const { add, update, getAll } = useTransaction(); // ✅ context
+  const { add, update, getAll } = useTransaction(); // context
 
   const [formData, setFormData] = useState({
     description: "",
-    amount: "",
+    amount: null,
     category: "Software",
     type: "expense",
     date: new Date(),

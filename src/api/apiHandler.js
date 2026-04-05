@@ -13,12 +13,12 @@ export const apiHandler = (fn) => {
                 const status = response.status;
                 const message = response.data?.message;
 
-                // ✅ Success Toast (for create/update)
+                // Success Toast (for create/update)
                 if (status === 201 && message) {
                     toast.success(message);
                 }
 
-                // ✅ Return only useful data
+                // Return only useful data
                 return response.data?.data;
 
             } catch (err) {

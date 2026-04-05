@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import List from "./List";
 import Create from "./Create";

@@ -10,13 +10,13 @@
   --font-sans: "Outfit", sans-serif;
 }
 
-/* ---------------- THEME (for animation tokens) ---------------- */
+/* THEME (for animation tokens) */
 @theme {
   --animate-fade-in: fade-in 0.2s ease-out forwards;
   --animate-slide-up-fade: slide-up-fade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* ---------------- KEYFRAMES ---------------- */
+/* KEYFRAMES */
 @layer utilities {
   @keyframes fade-in {
     0% {

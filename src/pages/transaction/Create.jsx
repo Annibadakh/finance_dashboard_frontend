@@ -1,6 +1,5 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import { FiArrowLeft, FiSave } from "react-icons/fi";
+import { FiSave } from "react-icons/fi";
 import { useCreate } from "./useCreate";
 import LabelInput from "../../components/LabelInput";
 import SelectField from "../../components/SelectField";

@@ -1,5 +1,5 @@
 import { BiUserCircle } from "react-icons/bi";
-import { FiMenu, FiBell, FiSearch, FiMoon, FiSun } from "react-icons/fi";
+import { FiMenu, FiSearch, FiMoon, FiSun } from "react-icons/fi";
 
 const Header = ({ toggleSidebar, toggleTheme, isDarkMode, user }) => {
   return (

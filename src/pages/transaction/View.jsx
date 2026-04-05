@@ -1,14 +1,10 @@
-import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { format } from "date-fns";
-import { FiArrowLeft } from "react-icons/fi";
 import { useTransactions } from "./useTransactions";
 import Loader from "../../components/Loader";
-import Button from "../../components/Button";
 
 const View = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { singleData: data, loading, error } = useTransactions(id);
 
   if (loading) return <Loader fullScreen text="Loading details..." />;

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   FiDownload,
   FiPieChart,
@@ -36,9 +35,6 @@ const View = () => {
             Deep dive into your financial metrics.
           </p>
         </div>
-        <Button variant="secondary" outline iconLeft={FiDownload}>
-          Export PDF
-        </Button>
       </div>
 
       {/* Advanced Filters */}

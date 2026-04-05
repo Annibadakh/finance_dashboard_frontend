@@ -1,14 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
-import {
-  FiPlus,
-  FiEdit2,
-  FiTrash2,
-  FiEye,
-  FiSearch,
-  FiFilter,
-} from "react-icons/fi";
+import { FiPlus, FiEdit2, FiTrash2, FiEye, FiSearch } from "react-icons/fi";
 import { useTransactions } from "./useTransactions";
 import { useAuth } from "../../context/AuthContext";
 import { useConfirm } from "../../context/ConfirmModalContext";
